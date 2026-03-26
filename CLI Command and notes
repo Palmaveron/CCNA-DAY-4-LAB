@@ -18,4 +18,92 @@ Firewall has 3 cables/ports
 
 4 secured ports
   1. 80
-  2. 
+  2. 443
+  3.8080
+  4. 8443
+
+
+
+HOW TO MAKE A FIREWALL POLICY??
+TASK 6
+    PROTOCOL         HACKER        VICTIM          PORT:
+    tcp,udp,icmp,ip    any         host 
+EX, HIRED AS SOC 3 WITH 150K SALARTY
+BET10 - HTTP, HTTPS, DNS IS OPEN
+BET11- VOIP PORTS: SIP, SCCP, PING ARE OPEN
+
+Put in DMZ port Gigabit 3
+conf t
+no ip access-list extended policy1
+ip access-list extended policy1
+permit tcp any host 192.168.103.10 eq 80
+permit tcp any host 192.168.103.10 eq 443
+permit tcp any host 192.168.103.10 eq 53
+permit tcp any host 192.168.103.11 eq 5060
+permit tcp any host 192.168.103.11 eq 2000
+permit icmp any host 192.168.103.11
+int gi 3
+ip access-group policy1 in
+do sh ip access-list policy1
+
+
+REMOVE POLICY
+conf t
+int gi 3
+no ip access-group policy1 in
+==============================
+ex 2
+BET10 - HTTPS, ping IS OPEN
+BET11- VOIP PORTS: ssh, DNS ARE OPEN
+
+
+conf t
+no ip access-list extended policy2
+ip access-list extended policy2
+permit tcp any host 192.168.103.10 eq 443
+permit icmp any host 192.168.103.10
+permit tcp any host 192.168.103.11 eq 53
+permit tcp any host 192.168.103.11 eq 22
+int gi 3
+ip access-group policy2 in
+do sh ip access-list policy2
+
+REMOVE POLICY
+conf t
+int gi 3
+no ip access-group policy2 in
+===========================
+ex 2
+BET10 - ssh,HTTPS,dns,sip IS OPEN
+BET11- VOIP PORTS: telnet,ssh,http ARE OPEN
+
+conf t
+no ip access-list extended policy3
+ip access-list extended policy3
+permit tcp any host 192.168.103.10 eq 22
+permit tcp any host 192.168.103.10 eq 443
+permit tcp any host 192.168.103.10 eq 53
+permit tcp any host 192.168.103.10 eq 5060
+permit tcp any host 192.168.103.11 eq 23
+permit tcp any host 192.168.103.11 eq 22
+permit tcp any host 192.168.103.11 eq 80
+int gi 3
+ip access-group policy3 in
+do sh ip access-list policy3
+
+
+REMOVE POLICY
+conf t
+int gi 3
+no ip access-group policy3 in
+
+
+@@@@@@@@
+8080/tcp open  http-proxy
+8443/tcp open  https-alt
+--> cloudfare
+--> hindi tunay na IP, nakahide behind
+--> mas cool pag meron yung website
+
+
+
