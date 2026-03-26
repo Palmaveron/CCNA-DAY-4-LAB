@@ -105,5 +105,41 @@ no ip access-group policy3 in
 --> hindi tunay na IP, nakahide behind
 --> mas cool pag meron yung website
 
+=====================================
+TASK 6: PAT-NAT:    PORT ADDRESS  TRANSLATION/NETWORK
+ADDRESS TRANSLATION:              PROXY/WAF/CLOUDFARE
+BET10.COM:192.168.103.21:80       208.8.8.50:80,443,8080,8443   
+                      22,443
+BET10.COM:192.168.103.22
 
+
+
+config t
+no access-list 8
+access-list 8 permit 192.168.103.21
+access-list 8 permit 192.168.103.22
+Int Gi 3
+ ip nat Inside
+Int gi 1
+ ip nat Outside
+IP Nat inside source static tcp 192.168.103.21 80 208.8.8.50 80
+IP Nat inside source static tcp 192.168.103.22 80 208.8.8.50 8080
+IP Nat inside source static tcp 192.168.103.21 443 208.8.8.50 443
+IP Nat inside source static tcp 192.168.103.22 443 208.8.8.50 8443
+IP nat inside source list 8 int gi 1 Overload
+end
+show ip nat translation
+
+!!!!!CHECK HOSTS FILE IF THERE'S ERROR!!!!!!
+192.168.103.10 bet10.com
+192.168.103.11 bet11.com
+208.8.8.133 socir.rivanit.com
+208.8.8.50 secbet10.com
+208.8.8.51 secbet11.com
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+Network time protocol
+line 647-652
+BOBO SA ORAS SI CISCO
 
