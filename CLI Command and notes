@@ -1,0 +1,21 @@
+#netstat -s -p tcp
+to view stablished session
+
+3 Types of firewall
+  1.AI Powered
+  2.Stateful Firewall
+    -syn
+    -syn-ack
+    -ack
+    --Established--
+  3.Pocket Firewall
+    -Using Cisco
+
+Firewall has 3 cables/ports
+  1. Outside (Firewall to internet)
+  2. Inside (Firewall to stations/end users
+  3. DMZ (Firewall to other devices/ server)
+
+4 secured ports
+  1. 80
+  2. 
